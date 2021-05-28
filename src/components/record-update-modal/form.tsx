@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import * as Styled from "./styles";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 
 import { useFormik } from "formik";
 import { FormField } from "./form-field";
@@ -32,6 +31,8 @@ export const RecordUpdateForm = () => {
     }
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const initialValues: IRecordInfo = {
     album_title: selectedRecord?.album_title ?? "",
     artist: findArtistById(selectedRecord?.artist, artistList) ?? "",
@@ -43,6 +44,7 @@ export const RecordUpdateForm = () => {
     initialValues: initialValues,
     validationSchema: ValidationSchema,
     onSubmit: (values: IRecordInfo) => {
+      setIsSubmitting(true);
       // Check to see if this is an existing artist. If not, add a new artist
       let artistIndex = artistList.findIndex(
         (artist: IArtistInfo) => artist.name === values.artist
@@ -73,6 +75,7 @@ export const RecordUpdateForm = () => {
         : dispatch(addRecord(values));
 
       dispatch(setModal(false, false));
+      setIsSubmitting(false);
     },
   });
 
@@ -115,7 +118,12 @@ export const RecordUpdateForm = () => {
           </Select>
         </Styled.FormControlContainer>
         <Styled.FormControlContainer fullWidth>
-          <Button type="submit" color="primary" variant="contained">
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            color="primary"
+            variant="contained"
+          >
             Submit
           </Button>
         </Styled.FormControlContainer>

@@ -12,6 +12,6 @@ and then simply run
 
 ```yarn run serve```
 
-to deploy the fake JSON api and the app. I'll expect a thank you card from Greg in the mail.
+to deploy the fake JSON api and the app.
 
 Zack

@@ -12,7 +12,7 @@ import { setArtistList } from "./actions/artists.actions";
 import { ModalActions } from "./utils/enums";
 import { RecordPagination } from "./components/pagination";
 import { RecordsPerPage } from "./utils/constants";
-import TextField from '@material-ui/core/TextField'
+import TextField from "@material-ui/core/TextField";
 
 import VinylIcon from "./images/vinyl.svg";
 
@@ -95,8 +95,10 @@ export const AlbumManager = () => {
         color="primary"
         aria-label="Add New Record"
         style={{ position: "fixed", right: 30, bottom: 30 }}
+        data-testid="add-record"
+        onClick={() => dispatch(setModal(true, false))}
       >
-        <AddIcon onClick={() => dispatch(setModal(true, false))} />
+        <AddIcon />
       </Fab>
     </>
   );

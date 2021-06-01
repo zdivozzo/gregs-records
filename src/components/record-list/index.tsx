@@ -38,7 +38,7 @@ export const RecordList = ({
     if (searchWord !== "") {
       let tempRecord: any = recordListCopy[index];
       return Object.values(tempRecord).some(function (record: any) {
-        return _.includes(record, searchWord);
+        return record.indexOf(searchWord) > -1;
       });
     } else {
       return true;
@@ -46,26 +46,26 @@ export const RecordList = ({
   };
 
   const showRecordList = () => {
+    let filteredArray = [];
     // Don't limit by page if searching
     let records =
       searchTerm === ""
         ? recordList.slice((page - 1) * RecordsPerPage, page * RecordsPerPage)
         : recordList;
 
-    return records
-      .filter(function (record: IRecordInfo, index: number) {
-        return search(record, index);
-      })
-      .map(function (record: IRecordInfo, index: number) {
-        return (
-          <Grid item xs={12} key={`${index}_${record.album_title}`}>
+    for (let i = 0; i < records.length; i++) {
+      if (search(records[i], i) === true) {
+        filteredArray.push(
+          <Grid item xs={12} key={`${i}_${records[i].album_title}`}>
             <RecordCard
-              recordInfo={record}
-              key={`${index}_${record.album_title}`}
+              recordInfo={records[i]}
+              key={`${i}_${records[i].album_title}`}
             />
           </Grid>
         );
-      });
+      }
+    }
+    return filteredArray
   };
 
   return (

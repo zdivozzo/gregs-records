@@ -36,10 +36,10 @@ export const RecordList = ({
   // Search function
   const search = (record: IRecordInfo, index: number) => {
     if (searchWord !== "") {
-      let tempRecord: any = Object.values(recordListCopy[index]);
-      for(let i = 0; i < tempRecord.length; i++){
-        return tempRecord[i].indexOf(searchWord) > -1;
-      }
+      let tempRecord: any = recordListCopy[index];
+      return Object.values(tempRecord).some(function (record: any) {
+        return record.indexOf(searchWord) > -1;
+      });
     } else {
       return true;
     }
@@ -65,7 +65,7 @@ export const RecordList = ({
         );
       }
     }
-    return filteredArray;
+    return filteredArray
   };
 
   return (

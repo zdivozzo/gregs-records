@@ -28,25 +28,29 @@ export const RecordCard = ({ recordInfo }: RecordCardProps) => {
   };
 
   return (
-    <Styled.RecordCard>
+    <Styled.RecordCard role="listitem" data-testid="record-card">
       <Styled.RecordCardHeader
         action={
           <>
             <IconButton
               aria-label="Edit Record"
               onClick={() => openEditModal(id)}
+              data-testid="edit-record"
             >
               <EditIcon />
             </IconButton>
             <IconButton
               aria-label="Delete Record"
               onClick={() => dispatch(deleteRecord(id))}
+              data-testid="delete-record"
             >
               <DeleteIcon />
             </IconButton>
             <IconButton
               aria-label="Like Record"
               onClick={() => dispatch(favRecord(id))}
+              data-testid="like-record"
+              aria-selected={fav}
             >
               <FavoriteIcon color={fav ? 'secondary' : 'action'} />
             </IconButton>
